@@ -4,41 +4,55 @@
 
 {% block body %}
 
+    <div class="card shadow">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactModal">New Contact</button>
 
+        <!-- Modal -->
+        <div class="modal fade" id="contactModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="card shadow">
-    <h1>Contact Book</h1>
-    <table id="datatable_contact" class="display">
-        <thead>
-        <tr>
-            <th>Category</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Numbers</th>
-            <th>Birthday</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for contact in contacts %}
+        <h1>Contact Book</h1>
+        <table id="datatable_contact" class="display">
+            <thead>
             <tr>
-                <td>{{ contact.category }}</td>
-                <td>{{ contact.name }}</td>
-                <td>
-                    {% for contactEmail in contact.contactEmails %}
-                        {{ contactEmail.label }} - {{ contactEmail.email }} <br>
-                    {% endfor %}
-                </td>
-                <td>
-                    {% for contactPhone in contact.contactPhones %}
-                        {{ contactPhone.label }} - {{ contactPhone.phone }} <br>
-                    {% endfor %}
-                </td>
-                <td>{{ contact.birthday|date('d-m-Y') }}</td>
+                <th>Category</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Numbers</th>
+                <th>Birthday</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.category }}</td>
+                    <td>{{ contact.name }}</td>
+                    <td>
+                        {% for contactEmail in contact.contactEmails %}
+                            {{ contactEmail.label }} - {{ contactEmail.email }} <br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for contactPhone in contact.contactPhones %}
+                            {{ contactPhone.label }} - {{ contactPhone.phone }} <br>
+                        {% endfor %}
+                    </td>
+                    <td>{{ contact.birthday|date('d-m-Y') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -54,4 +68,6 @@
             });
         });
     </script>
+    <script> const newContactUrl = "{{ path('app_contact_new') }}"; </script>
+    <script src="{{ asset('js/new_contact.js') }}"></script>
 {% endblock %}
