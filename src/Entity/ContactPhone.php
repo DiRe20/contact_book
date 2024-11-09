@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\ContactPhoneRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ContactPhoneRepository::class)]
+#[UniqueEntity(fields: ['phone'], message: 'Phone number already exists.')]
 class ContactPhone
 {
     #[ORM\Id]
@@ -21,7 +23,7 @@ class ContactPhone
     #[ORM\Column(length: 20)]
     private ?string $label = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 10, unique: true)]
     private ?string $phone = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
