@@ -11,6 +11,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['email'], message: 'Email already exists.')]
 class ContactEmail
 {
+    const string LABEL_PERSONAL = 'Personal';
+    const string LABEL_OFFICE = 'Office';
+    const string LABEL_SCHOOL = 'School';
+    const string LABEL_OTHER = 'Other';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

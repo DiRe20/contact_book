@@ -11,8 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
 {
-    const CATEGORY_FAMILY = 'family';
-    const CATEGORY_WORK = 'work';
+    const string CATEGORY_FAMILY = 'Family';
+    const string CATEGORY_WORK = 'Work';
+    const string CATEGORY_FRIENDS = 'Friends';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
