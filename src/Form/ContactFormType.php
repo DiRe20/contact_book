@@ -3,12 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Contact;
-use App\Entity\ContactEmail;
-use App\Entity\ContactPhone;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,6 +32,16 @@ class ContactFormType extends AbstractType
             ])
             ->add('contactEmails', CollectionType::class, [
                 'entry_type' => ContactEmailFormType::class,
+                'entry_options' => ['label' => false],
+                'prototype' => true,
+                'prototype_name' => '__contact_email__',
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'required' => true,
+            ])
+            ->add('contactPhones', CollectionType::class, [
+                'entry_type' => ContactPhoneFormType::class,
                 'entry_options' => ['label' => false],
                 'prototype' => true,
                 'prototype_name' => '__contact_email__',
