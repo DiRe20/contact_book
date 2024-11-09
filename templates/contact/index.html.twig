@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block body %}
+
+
+
+<div class="card shadow">
+    <h1>Contact Book</h1>
+    <table id="datatable_contact" class="display">
+        <thead>
+        <tr>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Numbers</th>
+            <th>Birthday</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.category }}</td>
+                <td>{{ contact.name }}</td>
+                <td>
+                    {% for contactEmail in contact.contactEmails %}
+                        {{ contactEmail.label }} - {{ contactEmail.email }} <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for contactPhone in contact.contactPhones %}
+                        {{ contactPhone.label }} - {{ contactPhone.phone }} <br>
+                    {% endfor %}
+                </td>
+                <td>{{ contact.birthday|date('d-m-Y') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#datatable_contact').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                pageLength: 50,
+                lengthMenu: [50, 100, 150],
+            });
+        });
+    </script>
+{% endblock %}
