@@ -44,7 +44,7 @@ class ContactFormType extends AbstractType
                 'entry_type' => ContactPhoneFormType::class,
                 'entry_options' => ['label' => false],
                 'prototype' => true,
-                'prototype_name' => '__contact_email__',
+                'prototype_name' => '__contact_phone__',
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,

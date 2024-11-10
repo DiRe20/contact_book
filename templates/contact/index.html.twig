@@ -7,6 +7,14 @@
     <div class="card shadow">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactModal">New Contact</button>
 
+        <div class="btn-group">
+            <div>
+                <a data-url="{{ path('app_contact_remove') }}" class="btn btn-dark pull-right js-remove-list">
+                    Delete selected<span class="fa fa-plus-circle"></span>
+                </a>
+            </div>
+        </div>
+
         <!-- Modal -->
         <div class="modal fade" id="contactModal">
             <div class="modal-dialog">
@@ -25,6 +33,7 @@
         <table id="datatable_contact" class="display">
             <thead>
             <tr>
+                <th></th>
                 <th>Category</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -35,6 +44,7 @@
             <tbody>
             {% for contact in contacts %}
                 <tr>
+                    <td><input type="checkbox" id="{{ contact.id }}" name="lineContact" class="line-js-contact"/></td>
                     <td>{{ contact.category }}</td>
                     <td>{{ contact.name }}</td>
                     <td>
@@ -70,4 +80,5 @@
     </script>
     <script> const newContactUrl = "{{ path('app_contact_new') }}"; </script>
     <script src="{{ asset('js/new_contact.js') }}"></script>
+    <script src="{{ asset('js/remove_contacts.js') }}"></script>
 {% endblock %}
