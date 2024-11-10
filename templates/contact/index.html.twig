@@ -4,32 +4,37 @@
 
 {% block body %}
 
-    <div class="card shadow">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactModal">New Contact</button>
-
-        <div class="btn-group">
-            <div>
-                <a data-url="{{ path('app_contact_remove') }}" class="btn btn-dark pull-right js-remove-list">
-                    Delete selected<span class="fa fa-plus-circle"></span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="contactModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="contactModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                 </div>
             </div>
         </div>
-
+    </div>
+<div class="container-fluid mt-5 px-3">
+    <div class="d-flex mb-3">
         <h1>Contact Book</h1>
+    </div>
+    <hr class="mb-3">
+</div>
+<div class="container-fluid mt-5 px-3" style="margin: 0 auto; max-width: 95%;">
+    <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex align-items-center">
+            <input type="checkbox" class="form-check-input me-2" id="select_all_check">
+            <label class="form-check-label me-3">Select all</label>
+            <a data-url="{{ path('app_contact_remove') }}" class="btn btn-dark pull-right js-remove-list">
+                Delete selected<span class="fa fa-plus-circle"></span>
+            </a>
+        </div>
+        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactModal">New Contact</a>
+    </div>
+    <div class="table-responsive">
         <table id="datatable_contact" class="display">
             <thead>
             <tr>
@@ -63,6 +68,7 @@
             </tbody>
         </table>
     </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}

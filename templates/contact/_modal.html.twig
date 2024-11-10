@@ -8,8 +8,8 @@
             {{ form_row(form.email) }}
         </div>
         <div class="col-sm">
-            <a href="#" class="js-remove-email btn btn-danger" style="width: 100%">
-                Remover
+            <a href="#" class="js-remove-email btn btn-danger">
+                <i class="bi bi-trash"></i>
             </a>
         </div>
     </div>
@@ -23,17 +23,23 @@
             {{ form_row(form.phone) }}
         </div>
         <div class="col-sm">
-            <a href="#" class="js-remove-phone btn btn-danger" style="width: 100%">
-                Remover
+            <a href="#" class="js-remove-phone btn btn-danger">
+                <i class="bi bi-trash"></i>
             </a>
         </div>
     </div>
 {% endmacro %}
-
 {{ form_start(form, { 'attr': {'id': 'contactForm'} }) }}
+    <div class="col-sm">
     {{ form_row(form.category) }}
+    </div>
+    <div class="col-md-6">
     {{ form_row(form.name) }}
+    </div>
+    <div class="col-md-6">
     {{ form_row(form.birthday) }}
+    </div>
+    <div class="col-md-6">
     <div class="card shadow">
         <div class="card-body">
             <div class="contact-email-wrapper"
@@ -49,6 +55,8 @@
             </div>
         </div>
     </div>
+    </div>
+    <div class="col-md-6">
     <div class="card shadow">
         <div class="card-body">
             <div class="contact-phone-wrapper"
@@ -63,6 +71,7 @@
                 </a>
             </div>
         </div>
+    </div>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 {{ form_end(form) }}
