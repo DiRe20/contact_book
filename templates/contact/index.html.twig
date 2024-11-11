@@ -59,7 +59,7 @@
                     </td>
                     <td>
                         {% for contactPhone in contact.contactPhones %}
-                            {{ contactPhone.label }} - {{ contactPhone.phone }} <br>
+                            {{ contactPhone.label }} - {{ contactPhone.getPhoneShow }} <br>
                         {% endfor %}
                     </td>
                     <td>{{ contact.birthday|date('d-m-Y') }}

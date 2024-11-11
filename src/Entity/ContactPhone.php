@@ -107,4 +107,9 @@ class ContactPhone
 
         return $this;
     }
+
+    public function getPhoneShow()
+    {
+        return preg_replace('/(\d{2})(?=\d)/', '$1.', $this->getPhone());
+    }
 }
