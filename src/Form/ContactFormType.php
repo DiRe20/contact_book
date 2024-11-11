@@ -18,6 +18,7 @@ class ContactFormType extends AbstractType
     {
         $builder
             ->add('category', ChoiceType::class, [
+                'label' => 'Category',
                 'choices' => [
                     Contact::CATEGORY_FAMILY => Contact::CATEGORY_FAMILY,
                     Contact::CATEGORY_WORK => Contact::CATEGORY_WORK,
@@ -28,6 +29,7 @@ class ContactFormType extends AbstractType
                 'label' => 'Name',
             ])
             ->add('birthday', null, [
+                'label' => 'Birthday',
                 'widget' => 'single_text',
             ])
             ->add('contactEmails', CollectionType::class, [

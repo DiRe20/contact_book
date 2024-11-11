@@ -5,9 +5,10 @@ namespace App\Form;
 use App\Entity\ContactPhone;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class ContactPhoneFormType extends AbstractType
 {
@@ -23,8 +24,18 @@ class ContactPhoneFormType extends AbstractType
                     ContactPhone::LABEL_OTHER => ContactPhone::LABEL_OTHER,
                 ]
             ])
-            ->add('phone', NumberType::class, [
-
+            ->add('phone', TextType::class, [
+                'label' => 'Phone Number',
+                'attr' => [
+                    'maxlength' => 15,
+                    'pattern' => '[0-9]*',
+                ],
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^\d+$/',
+                        'message' => 'Please enter only numbers.'
+                    ])
+                ]
             ])
         ;
     }
