@@ -2,13 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\Contact;
 use App\Entity\ContactEmail;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 
 class ContactEmailFormType extends AbstractType
 {
@@ -23,7 +23,18 @@ class ContactEmailFormType extends AbstractType
                     ContactEmail::LABEL_OTHER => ContactEmail::LABEL_OTHER,
                 ]
             ])
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'label' => 'Email Address',
+                'required' => true,
+                'constraints' => [
+                    new Email([
+                        'message' => 'Enter a valid email address',
+                    ]),
+                ],
+                'attr' => [
+                    'placeholder' => 'example@domain.com'
+                ],
+            ])
         ;
     }
 
