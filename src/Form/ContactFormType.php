@@ -66,6 +66,11 @@ class ContactFormType extends AbstractType
                             ->atPath('contactEmails')
                             ->addViolation();
                     }
+                    if ($contact->getContactPhones()->isEmpty()) {
+                        $context->buildViolation('Required Phone')
+                            ->atPath('contactPhones')
+                            ->addViolation();
+                    }
                 })
             ]
         ]);

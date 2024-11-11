@@ -39,6 +39,23 @@ class ContactController extends AbstractController
         ]);
     }
 
+    #[Route('/edit/{id}', name: 'app_contact_edit')]
+    public function edit(Contact $contact, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ContactFormType::class, $contact);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->persist($contact);
+            $entityManager->flush();
+            return $this->json(['success' => true]);
+        }
+
+        return $this->render('contact/_modal_edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route('/remove', name: 'app_contact_remove', methods: ['POST'])]
     public function remove(Request $request, ContactRepository $contactRepository, EntityManagerInterface $entityManager): JsonResponse
     {

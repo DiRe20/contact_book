@@ -9,10 +9,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"></h5>
+                    <h5 class="modal-title" id="modal-title-new"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="modal-body-new">
                 </div>
             </div>
         </div>
@@ -44,6 +44,7 @@
                 <th>Email</th>
                 <th>Phone Numbers</th>
                 <th>Birthday</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -67,7 +68,56 @@
                         <a title="{{ contact.is5orLessDaysToBirthday()==0 ? 'today' : contact.is5orLessDaysToBirthday()~' days left'}} "><i class="bi bi-bell"></i></a>
                         {% endif %}
                     </td>
-
+                    <td>
+                        <div class="modal fade" id="contactEditModal{{ contact.id }}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modal-title-edit{{ contact.id }}"></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" id="modal-body-edit{{ contact.id }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <a data-bs-toggle="modal" data-bs-target="#contactEditModal{{ contact.id }}"><i class="bi bi-pencil-square"></i></a>
+                        <script> var editContactUrl = "{{ path('app_contact_edit', {'id': contact.id}) }}"; </script>
+                        <script>
+                            $(document).ready(function () {
+                                console.log(editContactUrl);
+                                $('#contactEditModal{{ contact.id }}').on('show.bs.modal', function () {
+                                    $('#modal-title-edit{{ contact.id }}').html('Edit Contact {{ contact.name }}')
+                                    $.ajax({
+                                        url: editContactUrl,
+                                        method: "GET",
+                                        success: function (html) {
+                                            console.log(html);
+                                            $('#modal-body-edit{{ contact.id }}').html(html);
+                                        }
+                                    });
+                                });
+                                $('#modal-body-edit{{ contact.id }}').on('submit', '#contactEditForm', function (event) {
+                                    event.preventDefault();
+                                    const formData = $(this).serialize();
+                                    $.ajax({
+                                        url: editContactUrl,
+                                        method: "POST",
+                                        data: formData,
+                                        success: function (data) {
+                                            console.log(data);
+                                            if (data.success) {
+                                                $('#contactEditModal{{ contact.id }}').modal('hide');
+                                                location.reload();
+                                            }
+                                            $('#modal-body-edit{{ contact.id }}').html(data);
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

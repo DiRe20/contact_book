@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#contactModal').on('show.bs.modal', function () {
-        $('.modal-title').html('New Contact')
+        $('#modal-title-new').html('New Contact')
         $.ajax({
             url: newContactUrl,
             method: "GET",
@@ -9,7 +9,7 @@ $(document).ready(function () {
             }
         });
     });
-    $('.modal-body').on('submit', '#contactForm', function (event) {
+    $('#modal-body-new').on('submit', '#contactForm', function (event) {
         event.preventDefault();
         const formData = $(this).serialize();
         $.ajax({
@@ -22,7 +22,7 @@ $(document).ready(function () {
                     $('#contactModal').modal('hide');
                     location.reload();
                 }
-                $('.modal-body').html(data);
+                $('#modal-body-new').html(data);
             }
         });
     });

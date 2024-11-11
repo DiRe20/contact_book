@@ -1,0 +1,120 @@
+{% import _self as formMacros %}
+{% macro contactEmailRow(form) %}
+    <div class="row js-email-item" style="margin-top: 10px">
+        <div class="col-sm">
+            {{ form_row(form.label) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="col-sm">
+            <a href="#" class="js-remove-email btn btn-danger">
+                <i class="bi bi-trash"></i>
+            </a>
+        </div>
+    </div>
+{% endmacro %}
+{% macro contactPhoneRow(form) %}
+    <div class="row js-phone-item" style="margin-top: 10px">
+        <div class="col-sm">
+            {{ form_row(form.label) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(form.phone) }}
+        </div>
+        <div class="col-sm">
+            <a href="#" class="js-remove-phone btn btn-danger">
+                <i class="bi bi-trash"></i>
+            </a>
+        </div>
+    </div>
+{% endmacro %}
+{{ form_start(form, { 'attr': {'id': 'contactEditForm'} }) }}
+<div class="col-sm">
+    {{ form_row(form.category) }}
+</div>
+<div class="col-md-6">
+    {{ form_row(form.name) }}
+</div>
+<div class="col-md-6">
+    {{ form_row(form.birthday) }}
+</div>
+<div class="col-md-6">
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="contact-email-wrapper"
+                 data-prototype="{{ formMacros.contactEmailRow(form.contactEmails.vars.prototype)|e('html_attr') }}"
+                 data-index="{{ form.contactEmails|length }}">
+                {% for formEmail in form.contactEmails %}
+                    {{ formMacros.contactEmailRow(formEmail) }}
+                {% endfor %}
+                <a href="#" class="js-add-email btn btn-sm btn-dark" style="margin-top: 10px">
+                    <span class="fa fa-plus-circle"></span>
+                    Add Email
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="contact-phone-wrapper"
+                 data-prototype="{{ formMacros.contactPhoneRow(form.contactPhones.vars.prototype)|e('html_attr') }}"
+                 data-index="{{ form.contactPhones|length }}">
+                {% for formPhone in form.contactPhones %}
+                    {{ formMacros.contactPhoneRow(formPhone) }}
+                {% endfor %}
+                <a href="#" class="js-add-phone btn btn-sm btn-dark" style="margin-top: 10px">
+                    <span class="fa fa-plus-circle"></span>
+                    Add Phone
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="submit" class="btn btn-primary">Save</button>
+{{ form_end(form) }}
+
+<script>
+    jQuery(document).ready(function () {
+        var $wrapper = $('.contact-email-wrapper');
+        $wrapper.on('click', '.js-add-email', function (e) {
+            e.preventDefault();
+            var prototype = $wrapper.data('prototype');
+            var index = $wrapper.data('index');
+            var newForm = prototype.replace(/__contact_email__/g, index);
+            $wrapper.data('index', index + 1);
+            $(this).before(newForm);
+        });
+    });
+    jQuery(document).ready(function () {
+        var $wrapper = $('.contact-email-wrapper');
+        $wrapper.on('click', '.js-remove-email', function (e) {
+            e.preventDefault();
+            $(this).closest('.js-email-item')
+                .fadeOut()
+                .remove();
+        });
+    });
+    jQuery(document).ready(function () {
+        var $wrapper = $('.contact-phone-wrapper');
+        $wrapper.on('click', '.js-add-phone', function (e) {
+            e.preventDefault();
+            var prototype = $wrapper.data('prototype');
+            var index = $wrapper.data('index');
+            var newForm = prototype.replace(/__contact_phone__/g, index);
+            $wrapper.data('index', index + 1);
+            $(this).before(newForm);
+        });
+    });
+    jQuery(document).ready(function () {
+        var $wrapper = $('.contact-phone-wrapper');
+        $wrapper.on('click', '.js-remove-phone', function (e) {
+            e.preventDefault();
+            $(this).closest('.js-phone-item')
+                .fadeOut()
+                .remove();
+        });
+    });
+</script>
