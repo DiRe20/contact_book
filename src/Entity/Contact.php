@@ -179,4 +179,14 @@ class Contact
 
         return $this;
     }
+
+    public function is5orLessDaysToBirthday()
+    {
+        $birthdayTheseYear = (clone $this->getBirthday())->setDate((new \DateTime())->format('Y'),$this->getBirthday()->format('m'), $this->getBirthday()->format('d'));
+        $diff = (new \DateTime())->diff($birthdayTheseYear);
+        if ($diff->invert == 1 and $diff->days != 0) return null;
+
+        if ($diff->days > 5) return null;
+        return $diff->days;
+    }
 }

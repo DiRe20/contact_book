@@ -62,13 +62,25 @@
                             {{ contactPhone.label }} - {{ contactPhone.phone }} <br>
                         {% endfor %}
                     </td>
-                    <td>{{ contact.birthday|date('d-m-Y') }}</td>
+                    <td>{{ contact.birthday|date('d-m-Y') }}
+                        {% if contact.is5orLessDaysToBirthday() is not empty  %}
+                        <a title="{{ contact.is5orLessDaysToBirthday()==0 ? 'today' : contact.is5orLessDaysToBirthday()~' days left'}} "><i class="bi bi-bell"></i></a>
+                        {% endif %}
+                    </td>
+
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+    <style>
+        /* Show the tooltip when hovering */
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 {% endblock %}
 
 {% block javascripts %}
